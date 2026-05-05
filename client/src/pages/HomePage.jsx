@@ -1,14 +1,19 @@
-import { useState, useEffect } from 'react';
-import { searchMovies, searchByDirector, getTopMovies, addUserMovie } from '../api';
-import SearchBar from '../components/SearchBar';
-import MovieList from '../components/MovieList';
-import styles from './HomePage.module.css';
+import { useState, useEffect } from "react";
+import {
+  searchMovies,
+  searchByDirector,
+  getTopMovies,
+  addUserMovie,
+} from "../api";
+import SearchBar from "../components/SearchBar";
+import MovieList from "../components/MovieList";
+import styles from "./HomePage.module.css";
 
 function HomePage() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [query, setQuery] = useState('');
-  const [searchMode, setSearchMode] = useState('all');
+  const [query, setQuery] = useState("");
+  const [searchMode, setSearchMode] = useState("all");
   const [topMovies, setTopMovies] = useState([]);
 
   useEffect(() => {
@@ -24,9 +29,10 @@ function HomePage() {
     }
     setLoading(true);
     try {
-      const results = mode === 'director'
-        ? await searchByDirector(searchQuery)
-        : await searchMovies(searchQuery);
+      const results =
+        mode === "director"
+          ? await searchByDirector(searchQuery)
+          : await searchMovies(searchQuery);
       setMovies(results);
     } finally {
       setLoading(false);
@@ -38,10 +44,10 @@ function HomePage() {
   };
 
   const getResultsTitle = () => {
-    if (searchMode === 'director') {
+    if (searchMode === "director") {
       return `Movies by "${query}"`;
     }
-    return 'Search Results';
+    return "Search Results";
   };
 
   return (
@@ -59,9 +65,9 @@ function HomePage() {
             onAddToList={handleAddToList}
             showActions={true}
             emptyMessage={
-              searchMode === 'director'
-                ? `No movies found for director "${query}"`
-                : 'No movies found for your search'
+              searchMode === "director"
+                ? `No movies found for director 😔 "${query}"`
+                : "No movies found for your search 😔"
             }
           />
         </div>
