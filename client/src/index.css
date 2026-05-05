@@ -8,7 +8,7 @@
   --color-accent: #e50914;
   --color-accent-hover: #b20710;
   --color-star: #f5c518;
-  --color-success: #46d369;
+  --color-success: #45c966;
   --color-heatmap-0: #1a1a1a;
   --color-heatmap-1: #1a3a2a;
   --color-heatmap-2: #2d6a4f;
@@ -17,7 +17,7 @@
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
-  --font-body: 'Inter', sans-serif;
+  --font-body: "Inter", sans-serif;
 }
 
 *,
