@@ -1,0 +1,23 @@
+{
+  "name": "cinetrack",
+  "version": "1.0.0",
+  "description": "CineTrack — personal movie tracking service",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=client",
+    "build": "npm run build --workspace=client",
+    "server": "npm run start --workspace=server",
+    "test": "jest --config jest.config.js"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@babel/preset-react": "^7.24.0",
+    "babel-jest": "^29.7.0"
+  }
+}

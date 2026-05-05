@@ -1,0 +1,16 @@
+.page {
+  padding: 1rem 0;
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+}

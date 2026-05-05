@@ -1,0 +1,137 @@
+.page {
+  padding: 1rem 0;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .poster {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}
+
+.poster {
+  width: 100%;
+  border-radius: var(--radius-md);
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  background: var(--color-surface);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--color-star);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.genres {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.genreBadge {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.plot {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-text);
+  margin-top: 0.5rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.actionBtn {
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  transition: all 180ms ease;
+}
+
+.actionBtn:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--color-text-muted);
+}
+
+.notFound {
+  text-align: center;
+  padding: 3rem;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .meta {
+    gap: 0.5rem;
+    font-size: 0.82rem;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actionBtn {
+    width: 100%;
+    text-align: center;
+  }
+}

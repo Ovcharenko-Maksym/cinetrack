@@ -1,0 +1,107 @@
+.page {
+  max-width: 420px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  color: var(--color-text);
+}
+
+.input {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  transition: border-color 180ms ease;
+}
+
+.input:focus {
+  border-color: var(--color-accent);
+}
+
+.inputError {
+  border-color: var(--color-accent);
+}
+
+.error {
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+}
+
+.submit {
+  width: 100%;
+  padding: 0.7rem;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: background 180ms ease;
+}
+
+.submit:hover {
+  background: var(--color-accent-hover);
+}
+
+.footer {
+  text-align: center;
+  margin-top: 1.2rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.footerLink {
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .page {
+    margin: 1rem auto;
+    padding: 1.25rem 1rem;
+  }
+
+  .heading {
+    font-size: 1.35rem;
+  }
+
+  .subtitle,
+  .footer {
+    font-size: 0.82rem;
+  }
+}

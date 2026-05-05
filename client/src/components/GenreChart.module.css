@@ -1,0 +1,62 @@
+.chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.label {
+  width: 80px;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.barWrapper {
+  flex: 1;
+  height: 24px;
+  background: var(--color-surface-2);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  background: var(--color-success);
+  border-radius: var(--radius-sm);
+  transition: width 600ms ease;
+  min-width: 2px;
+}
+
+.count {
+  width: 30px;
+  font-size: 0.8rem;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .row {
+    gap: 0.5rem;
+  }
+
+  .label {
+    width: 68px;
+    font-size: 0.72rem;
+  }
+
+  .barWrapper {
+    height: 20px;
+  }
+
+  .count {
+    width: 24px;
+    font-size: 0.72rem;
+  }
+}

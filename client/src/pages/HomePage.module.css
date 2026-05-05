@@ -1,0 +1,35 @@
+.page {
+  padding: 1rem 0;
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.section {
+  margin-top: 2rem;
+}
+
+.sectionTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 1.35rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .section {
+    margin-top: 1.5rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.05rem;
+  }
+}
