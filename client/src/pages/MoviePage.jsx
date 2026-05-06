@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getMovieDetails, addUserMovie, updateUserMovie } from '../api';
+import { useToast } from '../components/Toast';
 import { formatRuntime } from '../utils/format';
 import MovieForm from '../components/MovieForm';
 import styles from './MoviePage.module.css';
@@ -12,6 +13,8 @@ function MoviePage() {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [addedTo, setAddedTo] = useState(new Set());
+  const toast = useToast();
 
   useEffect(() => {
     setLoading(true);
@@ -26,12 +29,39 @@ function MoviePage() {
       setShowForm(true);
       return;
     }
-    await addUserMovie(imdbId, status);
+    try {
+      await addUserMovie(imdbId, status);
+      setAddedTo((prev) => new Set(prev).add(status));
+      const labels = { watchlist: 'Watchlist', favorites: 'Favorites' };
+      toast.success(`Added to ${labels[status]}`);
+    } catch (err) {
+      const msg = err.response?.data?.error;
+      if (msg === 'Movie is already in this list') {
+        toast.info('Movie is already in this list');
+      } else {
+        toast.error(msg || 'Failed to add movie');
+      }
+    }
   };
 
   const handleFormSubmit = async ({ userRating, review }) => {
-    await addUserMovie(imdbId, 'watched');
-    setShowForm(false);
+    try {
+      const created = await addUserMovie(imdbId, 'watched');
+      if (userRating || review) {
+        await updateUserMovie(created.id, { userRating, review });
+      }
+      setAddedTo((prev) => new Set(prev).add('watched'));
+      setShowForm(false);
+      toast.success('Marked as watched');
+    } catch (err) {
+      const msg = err.response?.data?.error;
+      if (msg === 'Movie is already in this list') {
+        toast.info('Movie is already in watched list');
+      } else {
+        toast.error(msg || 'Failed to mark as watched');
+      }
+      setShowForm(false);
+    }
   };
 
   if (loading) {
@@ -74,14 +104,26 @@ function MoviePage() {
 
           {isAuthenticated && (
             <div className={styles.actions}>
-              <button className={styles.actionBtn} onClick={() => handleAddToList('watchlist')}>
-                ＋ Watchlist
+              <button
+                className={`${styles.actionBtn} ${addedTo.has('watchlist') ? styles.actionBtnDone : ''}`}
+                onClick={() => handleAddToList('watchlist')}
+                disabled={addedTo.has('watchlist')}
+              >
+                {addedTo.has('watchlist') ? '✓ In Watchlist' : '📋 Watchlist'}
               </button>
-              <button className={styles.actionBtn} onClick={() => handleAddToList('watched')}>
-                ✓ Watched
+              <button
+                className={`${styles.actionBtn} ${addedTo.has('watched') ? styles.actionBtnDone : ''}`}
+                onClick={() => handleAddToList('watched')}
+                disabled={addedTo.has('watched')}
+              >
+                {addedTo.has('watched') ? '✓ Watched' : '✓ Watched'}
               </button>
-              <button className={styles.actionBtn} onClick={() => handleAddToList('favorites')}>
-                ♥ Favorites
+              <button
+                className={`${styles.actionBtn} ${addedTo.has('favorites') ? styles.actionBtnDone : ''}`}
+                onClick={() => handleAddToList('favorites')}
+                disabled={addedTo.has('favorites')}
+              >
+                {addedTo.has('favorites') ? '♥ Favorited' : '♥ Favorites'}
               </button>
             </div>
           )}

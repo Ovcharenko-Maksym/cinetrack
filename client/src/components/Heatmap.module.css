@@ -1,6 +1,6 @@
 .wrapper {
   overflow-x: auto;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
 }
 
 .container {
@@ -9,7 +9,6 @@
 
 .months {
   display: flex;
-  margin-left: 30px;
   margin-bottom: 4px;
 }
 
@@ -17,6 +16,7 @@
   font-size: 0.7rem;
   color: var(--color-text-muted);
   text-align: left;
+  flex-shrink: 0;
 }
 
 .body {
@@ -81,21 +81,7 @@
   color: var(--color-text);
 }
 
-@media (max-width: 768px) {
-  .wrapper {
-    margin: 0 -0.25rem;
-  }
-
-  .container {
-    min-width: 760px;
-  }
-}
-
 @media (max-width: 480px) {
-  .container {
-    min-width: 680px;
-  }
-
   .cell {
     width: 10px;
     height: 10px;
@@ -104,5 +90,9 @@
   .dayLabel,
   .monthLabel {
     font-size: 0.6rem;
+  }
+
+  .dayLabel {
+    height: 10px;
   }
 }

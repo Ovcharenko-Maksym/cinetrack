@@ -98,10 +98,22 @@
   transition: all 180ms ease;
 }
 
-.actionBtn:hover {
+.actionBtn:hover:not(:disabled) {
   background: var(--color-accent);
   border-color: var(--color-accent);
   color: #fff;
+}
+
+.actionBtnDone {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: #fff;
+  opacity: 0.8;
+  cursor: default;
+}
+
+.actionBtnDone:hover {
+  opacity: 0.8;
 }
 
 .loading {

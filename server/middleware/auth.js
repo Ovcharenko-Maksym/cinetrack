@@ -1,20 +1,17 @@
-// JWT Authentication Middleware
-// TODO: Implement in Lab 3
+const jwt = require('jsonwebtoken');
 
-// const jwt = require('jsonwebtoken');
+module.exports = (req, res, next) => {
+  const authHeader = req.headers.authorization;
 
-// module.exports = (req, res, next) => {
-//   try {
-//     const authHeader = req.headers.authorization;
-//     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-//       return res.status(401).json({ error: 'Access denied. No token provided.' });
-//     }
-//
-//     const token = authHeader.split(' ')[1];
-//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-//     req.user = decoded;
-//     next();
-//   } catch (error) {
-//     res.status(401).json({ error: 'Invalid or expired token' });
-//   }
-// };
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Authorization token required' });
+  }
+
+  try {
+    const token = authHeader.split(' ')[1];
+    req.user = jwt.verify(token, process.env.JWT_SECRET);
+    return next();
+  } catch (error) {
+    return res.status(401).json({ error: 'Invalid or expired token' });
+  }
+};

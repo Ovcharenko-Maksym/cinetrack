@@ -1,39 +1,28 @@
-// CineTrack Server — Express Application Entry Point
-// TODO: Implement in Lab 3
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const { testConnection } = require('./models');
 
-// const express = require('express');
-// const cors = require('cors');
-// const dotenv = require('dotenv');
-// const { sequelize } = require('./models');
-// const authRoutes = require('./routes/auth');
-// const movieRoutes = require('./routes/movies');
-// const userRoutes = require('./routes/user');
+const app = express();
 
-// dotenv.config();
+app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(express.json());
 
-// const app = express();
-// const PORT = process.env.PORT || 5000;
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/movies', require('./routes/movies'));
+app.use('/api/user', require('./routes/user'));
 
-// app.use(cors());
-// app.use(express.json());
+app.use((req, res) => res.status(404).json({ error: 'Not found' }));
 
-// // Routes
-// app.use('/api/auth', authRoutes);
-// app.use('/api/movies', movieRoutes);
-// app.use('/api/user', userRoutes);
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ error: 'Internal server error' });
+});
 
-// // Health check
-// app.get('/api/health', (req, res) => {
-//   res.json({ status: 'ok', timestamp: new Date().toISOString() });
-// });
+const PORT = process.env.PORT || 5000;
 
-// // Database sync and server start
-// sequelize.sync().then(() => {
-//   app.listen(PORT, () => {
-//     console.log(`CineTrack server running on port ${PORT}`);
-//   });
-// }).catch(err => {
-//   console.error('Failed to sync database:', err);
-// });
+testConnection().then(() => {
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+});
 
-// module.exports = app;
+module.exports = app;

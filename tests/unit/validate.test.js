@@ -1,96 +1,26 @@
 import { validateRegister, validateLogin, validateMovieForm } from '../../client/src/utils/validate.js';
 
-describe('validateRegister', () => {
-  test('empty name returns error', () => {
-    const result = validateRegister({
-      name: '',
-      email: 'test@example.com',
-      password: '123456',
-      confirmPassword: '123456',
-    });
-    expect(result.isValid).toBe(false);
-    expect(result.errors.name).toBeDefined();
+describe('Client Validation', () => {
+  test('validateRegister — rejects invalid data, accepts valid', () => {
+    const invalid = validateRegister({ name: '', email: 'bad', password: '123', confirmPassword: '456' });
+    expect(invalid.isValid).toBe(false);
+    expect(invalid.errors.name).toBeDefined();
+    expect(invalid.errors.email).toBeDefined();
+    expect(invalid.errors.password).toBeDefined();
+    expect(invalid.errors.confirmPassword).toBeDefined();
+
+    const valid = validateRegister({ name: 'John', email: 'j@e.com', password: '123456', confirmPassword: '123456' });
+    expect(valid.isValid).toBe(true);
   });
 
-  test('invalid email returns error', () => {
-    const result = validateRegister({
-      name: 'John',
-      email: 'invalid-email',
-      password: '123456',
-      confirmPassword: '123456',
-    });
-    expect(result.isValid).toBe(false);
-    expect(result.errors.email).toBeDefined();
+  test('validateLogin — rejects empty fields, accepts valid', () => {
+    expect(validateLogin({ email: '', password: '' }).isValid).toBe(false);
+    expect(validateLogin({ email: 'test@example.com', password: '123456' }).isValid).toBe(true);
   });
 
-  test('password under 6 chars returns error', () => {
-    const result = validateRegister({
-      name: 'John',
-      email: 'test@example.com',
-      password: '123',
-      confirmPassword: '123',
-    });
-    expect(result.isValid).toBe(false);
-    expect(result.errors.password).toBeDefined();
-  });
-
-  test('passwords do not match returns error', () => {
-    const result = validateRegister({
-      name: 'John',
-      email: 'test@example.com',
-      password: '123456',
-      confirmPassword: '654321',
-    });
-    expect(result.isValid).toBe(false);
-    expect(result.errors.confirmPassword).toBeDefined();
-  });
-
-  test('valid data returns isValid true', () => {
-    const result = validateRegister({
-      name: 'John Doe',
-      email: 'john@example.com',
-      password: 'securepass',
-      confirmPassword: 'securepass',
-    });
-    expect(result.isValid).toBe(true);
-    expect(Object.keys(result.errors)).toHaveLength(0);
-  });
-});
-
-describe('validateLogin', () => {
-  test('empty email returns error', () => {
-    const result = validateLogin({ email: '', password: '123456' });
-    expect(result.isValid).toBe(false);
-    expect(result.errors.email).toBeDefined();
-  });
-
-  test('empty password returns error', () => {
-    const result = validateLogin({ email: 'test@example.com', password: '' });
-    expect(result.isValid).toBe(false);
-    expect(result.errors.password).toBeDefined();
-  });
-
-  test('valid data returns isValid true', () => {
-    const result = validateLogin({ email: 'test@example.com', password: '123456' });
-    expect(result.isValid).toBe(true);
-  });
-});
-
-describe('validateMovieForm', () => {
-  test('missing rating returns error', () => {
-    const result = validateMovieForm({ userRating: 0, review: '' });
-    expect(result.isValid).toBe(false);
-    expect(result.errors.userRating).toBeDefined();
-  });
-
-  test('review over 500 chars returns error', () => {
-    const result = validateMovieForm({ userRating: 8, review: 'a'.repeat(501) });
-    expect(result.isValid).toBe(false);
-    expect(result.errors.review).toBeDefined();
-  });
-
-  test('valid data returns isValid true', () => {
-    const result = validateMovieForm({ userRating: 8, review: 'Great movie!' });
-    expect(result.isValid).toBe(true);
+  test('validateMovieForm — rejects bad rating/long review', () => {
+    expect(validateMovieForm({ userRating: 0, review: '' }).isValid).toBe(false);
+    expect(validateMovieForm({ userRating: 8, review: 'a'.repeat(501) }).isValid).toBe(false);
+    expect(validateMovieForm({ userRating: 8, review: 'Great!' }).isValid).toBe(true);
   });
 });

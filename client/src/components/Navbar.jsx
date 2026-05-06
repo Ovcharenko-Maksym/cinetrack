@@ -49,6 +49,9 @@ function Navbar() {
               <NavLink to="/favorites" className={linkClass} onClick={() => setMenuOpen(false)}>
                 Favorites
               </NavLink>
+              <NavLink to="/my-movies" className={linkClass} onClick={() => setMenuOpen(false)}>
+                My Movies
+              </NavLink>
               <NavLink to="/stats" className={linkClass} onClick={() => setMenuOpen(false)}>
                 Stats
               </NavLink>

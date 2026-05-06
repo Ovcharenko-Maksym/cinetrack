@@ -53,6 +53,19 @@
   gap: 0.2rem;
 }
 
+.customBadge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(99, 102, 241, 0.9);
+  color: #fff;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
 .info {
   padding: 0.8rem;
   flex: 1;
@@ -123,21 +136,40 @@
   color: var(--color-text-muted);
   transition: all 180ms ease;
   white-space: nowrap;
+  flex: 1;
+  text-align: center;
 }
 
 .actionBtn:hover {
-  background: var(--color-accent);
+  color: #fff;
+}
+
+.btnWatchlist:hover {
+  background: #2d4f6a;
+}
+
+.btnWatched:hover {
+  background: #2d6a4f;
+}
+
+.btnFavorites:hover {
+  background: #6a2d4f;
+}
+
+.btnEdit:hover {
+  background: #4a5568;
   color: #fff;
 }
 
 .deleteBtn {
   background: transparent;
   color: var(--color-text-muted);
+  flex: 0 0 auto;
 }
 
 .deleteBtn:hover {
-  color: var(--color-accent);
-  background: transparent;
+  color: #e57373;
+  background: rgba(229, 115, 115, 0.1);
 }
 
 .tooltip {
@@ -178,6 +210,11 @@
     top: 6px;
     right: 6px;
     font-size: 0.72rem;
+  }
+
+  .customBadge {
+    top: 6px;
+    left: 6px;
   }
 
   .actionBtn {

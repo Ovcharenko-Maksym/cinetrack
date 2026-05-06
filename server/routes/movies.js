@@ -1,20 +1,18 @@
-// Movie Routes — search, details, top movies
-// TODO: Implement in Lab 3
+const express = require('express');
+const {
+  search,
+  getDetails,
+  getTop,
+  getCollections,
+  getCollection,
+} = require('../controllers/movieController');
 
-// const express = require('express');
-// const router = express.Router();
-// const { search, getDetails, getTop } = require('../controllers/movieController');
+const router = express.Router();
 
-// // GET /api/movies/search?q=query
-// // Returns: [ { imdbId, title, year, poster, genre } ]
-// router.get('/search', search);
+router.get('/search', search);
+router.get('/top', getTop);
+router.get('/collections', getCollections);
+router.get('/collections/:id', getCollection);
+router.get('/:imdbId', getDetails);
 
-// // GET /api/movies/top
-// // Returns: [ movie objects ]
-// router.get('/top', getTop);
-
-// // GET /api/movies/:imdbId
-// // Returns: { imdbId, title, year, genre, director, poster, imdbRating, runtime, plot }
-// router.get('/:imdbId', getDetails);
-
-// module.exports = router;
+module.exports = router;

@@ -41,7 +41,7 @@ function Heatmap({ data = [] }) {
     const monthLabels = [];
     let lastMonth = -1;
     weeks.forEach((week, i) => {
-      const firstDay = week.find(d => d !== null);
+      const firstDay = week.find((d) => d !== null);
       if (firstDay) {
         const month = new Date(firstDay.date).getMonth();
         if (month !== lastMonth) {
@@ -67,21 +67,30 @@ function Heatmap({ data = [] }) {
     return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   };
 
+  const cellSize = 12;
+  const gap = 2;
+  const labelWidth = 30;
+  const totalWidth = labelWidth + weeks.length * (cellSize + gap);
+
   return (
     <div className={styles.wrapper}>
-      <div className={styles.container}>
-        <div className={styles.months}>
-          {monthLabels.map(({ index, label }) => (
-            <span
-              key={label + index}
-              className={styles.monthLabel}
-              style={{ position: 'absolute', left: `${30 + index * 14}px` }}
-            >
-              {label}
-            </span>
-          ))}
+      <div className={styles.container} style={{ minWidth: `${totalWidth}px` }}>
+        <div className={styles.months} style={{ paddingLeft: `${labelWidth}px` }}>
+          {monthLabels.map(({ index, label }, i) => {
+            const nextIndex = monthLabels[i + 1]?.index ?? weeks.length;
+            const span = nextIndex - index;
+            return (
+              <span
+                key={label + index}
+                className={styles.monthLabel}
+                style={{ width: `${span * (cellSize + gap)}px` }}
+              >
+                {label}
+              </span>
+            );
+          })}
         </div>
-        <div className={styles.body} style={{ marginTop: '18px' }}>
+        <div className={styles.body}>
           <div className={styles.dayLabels}>
             <span className={styles.dayLabel} style={{ visibility: 'hidden' }}>.</span>
             <span className={styles.dayLabel}>Mon</span>

@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { validateMovieForm } from '../utils/validate';
 import styles from './MovieForm.module.css';
 
-function MovieForm({ onSubmit, onCancel }) {
-  const [userRating, setUserRating] = useState(0);
-  const [review, setReview] = useState('');
+function MovieForm({ onSubmit, onCancel, initialRating = 0, initialReview = '' }) {
+  const [userRating, setUserRating] = useState(initialRating);
+  const [review, setReview] = useState(initialReview || '');
   const [errors, setErrors] = useState({});
   const [hoverRating, setHoverRating] = useState(0);
 

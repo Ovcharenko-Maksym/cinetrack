@@ -3,45 +3,6 @@
   margin: 0 auto 2rem;
 }
 
-.modes {
-  display: flex;
-  gap: 0;
-  margin-bottom: 0.6rem;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.modeBtn {
-  padding: 0.4rem 1rem;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  background: var(--color-surface);
-  transition: all 180ms ease;
-  border-right: 1px solid var(--color-border);
-}
-
-.modeBtn:last-child {
-  border-right: none;
-}
-
-.modeBtn:hover {
-  color: var(--color-text);
-}
-
-.modeBtnActive {
-  background: var(--color-accent);
-  color: #fff;
-}
-
-.modeBtnActive:hover {
-  color: #fff;
-}
-
 .inputWrap {
   position: relative;
 }
@@ -112,16 +73,6 @@
 @media (max-width: 480px) {
   .wrapper {
     margin-bottom: 1.5rem;
-  }
-
-  .modes {
-    width: 100%;
-  }
-
-  .modeBtn {
-    flex: 1;
-    padding: 0.65rem 0.75rem;
-    font-size: 0.78rem;
   }
 
   .input {

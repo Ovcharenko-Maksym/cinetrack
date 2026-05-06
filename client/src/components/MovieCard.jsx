@@ -2,37 +2,73 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import styles from './MovieCard.module.css';
 
-function MovieCard({ movie, onAddToList, onDelete, showActions = false, userRating, review }) {
+const STATUS_LABELS = {
+  watchlist: { icon: '📋', label: 'Watchlist' },
+  watched: { icon: '✓', label: 'Watched' },
+  favorites: { icon: '♥', label: 'Favorites' },
+};
+
+function MovieCard({
+  movie,
+  onAddToList,
+  onMove,
+  onDelete,
+  onEdit,
+  showActions = false,
+  currentStatus,
+  userRating,
+  review,
+  isCustom = false,
+}) {
   const { isAuthenticated } = useAuth();
+  const isCustomMovie = isCustom || movie.imdbId?.startsWith('custom-');
 
   const handleImageError = (e) => {
     e.target.style.display = 'none';
     e.target.nextSibling.style.display = 'flex';
   };
 
+  const movieLink = isCustomMovie ? null : `/movie/${movie.imdbId}`;
+
+  const posterContent = (
+    <>
+      <img
+        src={movie.poster}
+        alt={movie.title}
+        className={styles.poster}
+        onError={handleImageError}
+      />
+      <div className={styles.posterFallback} style={{ display: 'none' }}>
+        {movie.title}
+      </div>
+      {movie.imdbRating && (
+        <span className={styles.rating}>★ {movie.imdbRating}</span>
+      )}
+      {isCustomMovie && <span className={styles.customBadge}>My movie</span>}
+    </>
+  );
+
   return (
     <div className={styles.card}>
-      <Link to={`/movie/${movie.imdbId}`} className={styles.posterWrap}>
-        <img
-          src={movie.poster}
-          alt={movie.title}
-          className={styles.poster}
-          onError={handleImageError}
-        />
-        <div className={styles.posterFallback} style={{ display: 'none' }}>
-          {movie.title}
-        </div>
-        {movie.imdbRating && (
-          <span className={styles.rating}>★ {movie.imdbRating}</span>
-        )}
-      </Link>
+      {movieLink ? (
+        <Link to={movieLink} className={styles.posterWrap}>
+          {posterContent}
+        </Link>
+      ) : (
+        <div className={styles.posterWrap}>{posterContent}</div>
+      )}
 
       <div className={styles.info}>
-        <Link to={`/movie/${movie.imdbId}`} className={styles.title}>
-          {movie.title}
-        </Link>
+        {movieLink ? (
+          <Link to={movieLink} className={styles.title}>
+            {movie.title}
+          </Link>
+        ) : (
+          <span className={styles.title}>{movie.title}</span>
+        )}
         <div className={styles.meta}>
           <span>{movie.year}</span>
+          {movie.director && <span>{movie.director}</span>}
         </div>
         {movie.genre && (
           <span className={styles.genre}>{movie.genre.split(',')[0].trim()}</span>
@@ -45,34 +81,58 @@ function MovieCard({ movie, onAddToList, onDelete, showActions = false, userRati
         )}
       </div>
 
-      {showActions && isAuthenticated && onAddToList && (
+      {showActions && isAuthenticated && onAddToList && !onMove && (
         <div className={styles.actions}>
-          <button className={styles.actionBtn} onClick={() => onAddToList(movie.imdbId, 'watchlist')}>
-            ＋ Watchlist
+          <button
+            className={`${styles.actionBtn} ${styles.btnWatchlist}`}
+            onClick={() => onAddToList(movie.imdbId, 'watchlist')}
+          >
+            📋 Watchlist
           </button>
-          <button className={styles.actionBtn} onClick={() => onAddToList(movie.imdbId, 'watched')}>
+          <button
+            className={`${styles.actionBtn} ${styles.btnWatched}`}
+            onClick={() => onAddToList(movie.imdbId, 'watched')}
+          >
             ✓ Watched
           </button>
-          <button className={styles.actionBtn} onClick={() => onAddToList(movie.imdbId, 'favorites')}>
+          <button
+            className={`${styles.actionBtn} ${styles.btnFavorites}`}
+            onClick={() => onAddToList(movie.imdbId, 'favorites')}
+          >
             ♥ Favorites
           </button>
         </div>
       )}
 
-      {showActions && isAuthenticated && onDelete && (
+      {showActions && isAuthenticated && onMove && (
         <div className={styles.actions}>
-          <button className={styles.actionBtn} onClick={() => onAddToList && onAddToList(movie.imdbId, 'watchlist')}>
-            → Watchlist
-          </button>
-          <button className={styles.actionBtn} onClick={() => onAddToList && onAddToList(movie.imdbId, 'watched')}>
-            → Watched
-          </button>
-          <button className={styles.actionBtn} onClick={() => onAddToList && onAddToList(movie.imdbId, 'favorites')}>
-            → Favorites
-          </button>
-          <button className={`${styles.actionBtn} ${styles.deleteBtn}`} onClick={onDelete}>
-            ✕ Remove
-          </button>
+          {onEdit && (
+            <button
+              className={`${styles.actionBtn} ${styles.btnEdit}`}
+              onClick={onEdit}
+            >
+              ✎ Edit
+            </button>
+          )}
+          {Object.entries(STATUS_LABELS)
+            .filter(([status]) => status !== currentStatus)
+            .map(([status, { icon, label }]) => (
+              <button
+                key={status}
+                className={`${styles.actionBtn} ${styles[`btn${label}`]}`}
+                onClick={() => onMove(status)}
+              >
+                {icon} {label}
+              </button>
+            ))}
+          {onDelete && (
+            <button
+              className={`${styles.actionBtn} ${styles.deleteBtn}`}
+              onClick={onDelete}
+            >
+              ✕ Remove
+            </button>
+          )}
         </div>
       )}
 

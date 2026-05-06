@@ -1,14 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from './SearchBar.module.css';
 
-const MODES = [
-  { id: 'all', label: 'By Title' },
-  { id: 'director', label: 'By Director' },
-];
-
 function SearchBar({ onSearch, loading = false }) {
   const [value, setValue] = useState('');
-  const [mode, setMode] = useState('all');
   const timerRef = useRef(null);
 
   useEffect(() => {
@@ -16,49 +10,30 @@ function SearchBar({ onSearch, loading = false }) {
 
     if (value.trim()) {
       timerRef.current = setTimeout(() => {
-        onSearch(value.trim(), mode);
+        onSearch(value.trim());
       }, 400);
     } else {
-      onSearch('', mode);
+      onSearch('');
     }
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [value, mode]);
+  }, [value]);
 
   const handleClear = () => {
     setValue('');
-    onSearch('', mode);
+    onSearch('');
   };
-
-  const handleModeChange = (newMode) => {
-    setMode(newMode);
-  };
-
-  const placeholder = mode === 'director'
-    ? 'Enter director name (e.g. Christopher Nolan)...'
-    : 'Search movies by title...';
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.modes}>
-        {MODES.map((m) => (
-          <button
-            key={m.id}
-            className={`${styles.modeBtn} ${mode === m.id ? styles.modeBtnActive : ''}`}
-            onClick={() => handleModeChange(m.id)}
-          >
-            {m.label}
-          </button>
-        ))}
-      </div>
       <div className={styles.inputWrap}>
         <span className={styles.icon}>🔍</span>
         <input
           type="text"
           className={styles.input}
-          placeholder={placeholder}
+          placeholder="Search movies by title..."
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />

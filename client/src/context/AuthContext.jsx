@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useCallback } from 'react';
+import { setAuthToken } from '../api';
 
 const AuthContext = createContext(null);
 
@@ -9,11 +10,13 @@ export function AuthProvider({ children }) {
   const login = useCallback((userData, authToken) => {
     setUser(userData);
     setToken(authToken);
+    setAuthToken(authToken);
   }, []);
 
   const logout = useCallback(() => {
     setUser(null);
     setToken(null);
+    setAuthToken(null);
   }, []);
 
   const isAuthenticated = !!token;

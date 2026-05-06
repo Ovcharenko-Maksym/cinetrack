@@ -1,0 +1,357 @@
+.page {
+  padding: 1rem 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.btnCreate {
+  padding: 0.5rem 1.2rem;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: background 180ms ease;
+  white-space: nowrap;
+}
+
+.btnCreate:hover {
+  background: var(--color-accent-hover);
+}
+
+/* Modal form overlay */
+.formOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.form {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.formTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.fieldFull {
+  grid-column: 1 / -1;
+}
+
+.label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.input {
+  padding: 0.55rem 0.75rem;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  transition: border-color 180ms ease;
+}
+
+.input:focus {
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+.textarea {
+  padding: 0.55rem 0.75rem;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  resize: vertical;
+  min-height: 70px;
+  transition: border-color 180ms ease;
+}
+
+.textarea:focus {
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+.fieldError {
+  font-size: 0.75rem;
+  color: var(--color-accent);
+}
+
+.formActions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.btnSave {
+  padding: 0.55rem 1.5rem;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: background 180ms ease;
+}
+
+.btnSave:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+}
+
+.btnSave:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btnCancel {
+  padding: 0.55rem 1.5rem;
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  transition: color 180ms ease;
+}
+
+.btnCancel:hover {
+  color: var(--color-text);
+}
+
+/* Movie cards grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cardPoster {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--color-surface-2);
+  position: relative;
+}
+
+.posterImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.posterPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  background: var(--color-surface-2);
+}
+
+.cardBody {
+  padding: 0.9rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.cardMeta {
+  display: flex;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.cardGenre {
+  display: inline-block;
+  font-size: 0.7rem;
+  background: var(--color-surface-2);
+  padding: 0.1rem 0.5rem;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  margin-top: 0.2rem;
+  width: fit-content;
+}
+
+.cardDesc {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: 0.3rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.9rem;
+  border-top: 1px solid var(--color-border);
+  gap: 0.5rem;
+}
+
+.listActions {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.listBtn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  font-size: 0.85rem;
+  transition: all 180ms ease;
+}
+
+.listBtn:hover {
+  background: var(--color-accent);
+  transform: scale(1.1);
+}
+
+.editActions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.editBtn {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  transition: all 180ms ease;
+}
+
+.editBtn:hover {
+  color: var(--color-text);
+  background: var(--color-surface-2);
+}
+
+.deleteBtnText:hover {
+  color: #e57373;
+}
+
+/* Empty state */
+.empty {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--color-text-muted);
+}
+
+.emptyIcon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.emptyText {
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+.emptyHint {
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .fieldFull {
+    grid-column: auto;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 1.3rem;
+  }
+
+  .form {
+    padding: 1.25rem;
+  }
+
+  .formTitle {
+    font-size: 1.1rem;
+  }
+
+  .cardActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .listActions,
+  .editActions {
+    justify-content: center;
+  }
+}

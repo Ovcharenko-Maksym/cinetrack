@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage';
 import WatchlistPage from './pages/WatchlistPage';
 import WatchedPage from './pages/WatchedPage';
 import FavoritesPage from './pages/FavoritesPage';
+import MyMoviesPage from './pages/MyMoviesPage';
 import StatsPage from './pages/StatsPage';
 import ProfilePage from './pages/ProfilePage';
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/watchlist" element={<PrivateRoute><WatchlistPage /></PrivateRoute>} />
           <Route path="/watched" element={<PrivateRoute><WatchedPage /></PrivateRoute>} />
           <Route path="/favorites" element={<PrivateRoute><FavoritesPage /></PrivateRoute>} />
+          <Route path="/my-movies" element={<PrivateRoute><MyMoviesPage /></PrivateRoute>} />
           <Route path="/stats" element={<PrivateRoute><StatsPage /></PrivateRoute>} />
           <Route path="/profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
         </Routes>

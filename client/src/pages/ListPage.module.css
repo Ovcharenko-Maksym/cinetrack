@@ -8,9 +8,39 @@
   margin-bottom: 1.5rem;
 }
 
+.editOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1rem;
+}
+
+.editModal {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 440px;
+}
+
+.editTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
 @media (max-width: 480px) {
   .heading {
     font-size: 1.3rem;
     margin-bottom: 1rem;
+  }
+
+  .editModal {
+    padding: 1rem;
   }
 }

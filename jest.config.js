@@ -8,5 +8,9 @@ module.exports = {
   ],
   testMatch: [
     '<rootDir>/tests/**/*.test.js'
-  ]
+  ],
+  moduleNameMapper: {
+    '\\.module\\.css$': '<rootDir>/tests/__mocks__/styleMock.js',
+    '\\.css$': '<rootDir>/tests/__mocks__/styleMock.js',
+  },
 };
